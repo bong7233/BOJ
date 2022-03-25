@@ -13,4 +13,4 @@ for _ in range(n):
         except:
             print(0)
     else:
-        heapq.heappush(h, [abs(c), c])
+        heapq.heappush(h, (abs(c), c))
