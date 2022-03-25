@@ -3,9 +3,8 @@ import sys
 n = int(sys.stdin.readline())
 
 for i in range(n):
-    total = i
-    for j in str(i):
-        total += int(j)
+    li = list(map(int,str(i)))
+    total = i + sum(li)
     if total == n:
         print(i)
         break
