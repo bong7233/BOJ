@@ -1,27 +1,22 @@
 def solution(N, stages):
 
     cur_stage = [[i+1,0] for i in range(N)]
-    # cur_stage : [[1, 0], [2, 0], [3, 0], [4, 0], [5, 0]]
 
-    for stage in stages:        # stages : [2,1,2,6,2,4,3,3]
-        if 0 < stage <= N:          # 마지막 스테이지를 클리어한 유저는 무시
+    for stage in stages:
+        if 0 < stage <= N:
             cur_stage[stage-1][1] += 1
 
-    print(cur_stage)
-    # cur_stage = [[1, 1], [2, 3], [3, 2], [4, 1], [5, 0]] 현재 스테이지와 유저수가 담긴다
 
-    user_num = [i[1] for i in cur_stage] # 스테이지별 유저 수
+    user_num = [i[1] for i in cur_stage]
     total = len(stages)
     for i in range(len(cur_stage)):
         if total == 0:
-            total = 1
-        cur_stage[i][1] = cur_stage[i][1]/total
-        total -= user_num[i]
-        print(total)
-    print(cur_stage)
+            cur_stage[i][1] = 0
+        else:
+            cur_stage[i][1] = cur_stage[i][1]/total
+            total -= user_num[i]
 
     cur_stage.sort(key=lambda stage: (-(stage[1]),stage[0]))
-    print(cur_stage)
 
     answer = []
     for fail in cur_stage:
