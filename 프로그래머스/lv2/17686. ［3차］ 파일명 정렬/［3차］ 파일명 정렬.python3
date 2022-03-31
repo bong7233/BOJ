@@ -1,0 +1,25 @@
+from collections import defaultdict
+import re
+
+def solution(files):
+    
+    head = re.compile('[^0-9]+')
+    number = re.compile('[0-9]{1,5}')
+
+    file_dic = defaultdict(list)
+
+    for file in files:
+        file_head = head.search(file).group()
+        file_num = number.search(file).group()
+
+        file_dic[file].append(file_head.lower())
+        file_dic[file].append(int(file_num))
+
+
+    file_sorted = sorted(file_dic.items(), key=lambda x : (x[1][0], x[1][1]))
+
+    answer = []
+    for file in file_sorted:
+        answer.append(file[0])
+    
+    return answer
