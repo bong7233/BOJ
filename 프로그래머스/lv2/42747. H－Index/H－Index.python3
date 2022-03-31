@@ -1,0 +1,17 @@
+def solution(citations):
+    
+    citations.sort()
+
+    n = len(citations)
+
+    answer = 0
+    while n > 0 and citations:
+        num = citations.pop(0)
+        if num <= n:
+            answer = num
+            n -= 1
+        elif num > n:
+            answer = n
+            break
+
+    return(answer)
