@@ -1,17 +1,22 @@
 def solution(citations):
     
+    # 주어진 리스트를 오름차순 정렬
     citations.sort()
-
+    
+    # 리스트의 길이를 n에 저장
     n = len(citations)
-
+    
+    # 리스트에서 맨앞요소(가장 낮은숫자)를 pop하며 끝까지 진행
     answer = 0
     while n > 0 and citations:
-        num = citations.pop(0)
-        if num <= n:
+        
+        # 오름차순 정렬을 했으므로, 맨앞의 숫자보다 나머지리스트의 길이가 크다면 모든 논문이 뽑아진 숫자만큼 인용된것으로 판단
+        num = citations.pop(0) 
+        if num <= n:      # 숫자와 길이가 같아질때까지 진행 
             answer = num
             n -= 1
-        elif num > n:
-            answer = n
-            break
+        elif num > n:     # 만약 숫자가 남은 리스트의 길이보다 커진다면 문제의 조건중 num개 이상의 논문이 num회 인용된 조건을 만족못함
+            answer = n    # 그러므로 num 이 더 커져도 현재의 리스트의 길이이상은 인용될수없음
+            break         # 리스트의 길이를 최대값으로 하고 반복문 중단
 
     return(answer)
