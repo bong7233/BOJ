@@ -3,21 +3,27 @@ import re
 
 def solution(files):
     
+    # 헤드와 넘버에 해당하는 정규표현식 기준설정(tail은 무시)
     head = re.compile('[^0-9]+')
     number = re.compile('[0-9]{1,5}')
 
-    file_dic = defaultdict(list)
-
+    file_dic = defaultdict(list)  # value를 빈리스트[]로 가지는 딕셔너리 생성
+    
+    # 반복문으로 파일을 돌면서 문제조건(정규표현식)에 맞는 head와 number 탐색
     for file in files:
-        file_head = head.search(file).group()
-        file_num = number.search(file).group()
+        file_head = head.search(file).group()  # 문자열과 공백 - 로 이뤄진 첫번째 문자열덩어리를 file_head로 설정
+        file_num = number.search(file).group() # 1~5자리 숫자로 이뤄진 첫번째 숫자덩어리를 file_num으로 설정
+        # 각각 첫번쨰 덩어리만 탐색한이유는 숫자이후 등장하는 tail부분은 무시하기위해서이다
 
-        file_dic[file].append(file_head.lower())
-        file_dic[file].append(int(file_num))
+        # 딕셔너리에 {key=파일명, value=[head,number]} 형태로 저장
+        file_dic[file].append(file_head.lower()) # 문자열은 소문자로 변환
+        file_dic[file].append(int(file_num))     # 숫자는 현재 문자열형태 '009' 식 이므로 int로 변환
 
-
+    
+    # .items()를 사용하여 key,value가 튜플형태로 묶인 리스트를 만들고, head와 number 순서로 정렬(안정정렬)
     file_sorted = sorted(file_dic.items(), key=lambda x : (x[1][0], x[1][1]))
-
+    
+    # 정렬된 file_sorted의 file들의 첫번쨰원소(파일명)을 answer에 담고 출력
     answer = []
     for file in file_sorted:
         answer.append(file[0])
